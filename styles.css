@@ -64,13 +64,6 @@ body {
 
 /*************************/
 
-
-.center {
-  display: flex;
-  flex: 1;
-  margin: auto auto;
-}
-
 .spacing {
   margin: 40px;
 }
