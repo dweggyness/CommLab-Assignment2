@@ -1,0 +1,76 @@
+body {
+  font-family: 'Lato';
+  margin: 0;
+  background-color: lightgray;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* comic container */
+
+.comicContainer {
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comicRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.row1 .panel1 {
+  flex-basis: 30%;
+}
+
+.row1 .panel2 {
+  flex-basis: 60%;
+}
+
+.row2 .panel1 {
+  flex-basis: 45%;
+}
+
+.row2 .panel2 {
+  flex-basis: 45%;
+}
+
+.row3 {
+  justify-content: center;
+}
+
+.row3 .panel1 {
+  flex-basis: 95%;
+}
+
+.row4 {
+  justify-content: center;
+}
+
+.row4 .panel1 {
+  flex-basis: 50%;
+}
+
+.comicPanel {
+  height: 280px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 2px;
+}
+
+/*************************/
+
+
+.center {
+  display: flex;
+  flex: 1;
+  margin: auto auto;
+}
+
+.spacing {
+  margin: 40px;
+}
