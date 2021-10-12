@@ -41,16 +41,19 @@ body {
 
 .row1 .panel2 {
   transform: translateY(12vh);
-  flex-basis: 48.8%;
+  flex-basis: 48.8%; 
   filter: brightness(0.2) blur(5px);
 }
 
 .row2 .panel1 {
-  flex-basis: 45%;
+  transform: translateY(-12vh);
+  flex-basis: 48.8%;
 }
 
 .row2 .panel2 {
-  flex-basis: 45%;
+  transform: translateY(12vh);
+  flex-basis: 41.2%;
+  filter: brightness(0.2) blur(5px);
 }
 
 .row3 {
@@ -84,10 +87,92 @@ body {
 
 /* */
 
+@keyframes fadeIn {
+  100% {
+    opacity: 100%;
+  }
+}
+
+#panel1Text {
+  opacity: 0%;
+
+  position: absolute;
+  top: 10%;
+  left: 45%;
+  height: 120px;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+
+}
+
+#panel2TextB {
+  opacity: 0%;
+
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  height: 120px;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+#panel2TextC {
+  opacity: 0%;
+
+  position: absolute;
+  top: 15%;
+  left: 65%;
+  height: 120px;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+
+}
+
+
+
+
+
 @keyframes splashExplosion {
   100% {
-    height: 600px;
+    height: 750px;
   }
+}
+
+@keyframes shakyGlass {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  25% {
+    transform: translate(-50%, -50%) rotate(2deg) scale(1.1);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(-2deg) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+}
+
+#panel6BrokenGlass {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200px;
+  animation-name: shakyGlass;
+  animation-duration: 2s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
 }
 
 #panel6SplashImage {
