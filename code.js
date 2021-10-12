@@ -18,13 +18,29 @@ document.addEventListener("DOMContentLoaded", function() {
   const panelSnap = new PanelSnap(panelSnapOptions);
 
   var reachedFirstRow = false;
+  var reachedSecondRow = false;
+  var reachedThirdRow = false;
   var reachedFinalPanel = false;
   
   panelSnap.on("activatePanel", ( panel ) => {
     if ($(panel).hasClass('row1')) {
       if (!reachedFirstRow) { // only run this script once
-        console.log('hello');
         reachedFirstRow = true;
+        hideScrollArrow()
+        disableScroll();
+      }
+    }
+    if ($(panel).hasClass('row2')) {
+      if (!reachedSecondRow) { // only run this script once
+        reachedSecondRow = true;
+        hideScrollArrow()
+        disableScroll();
+      }
+    }
+    if ($(panel).hasClass('row3')) {
+      if (!reachedThirdRow) { // only run this script once
+        reachedThirdRow = true;
+        hideScrollArrow()
         disableScroll();
       }
     }
@@ -32,8 +48,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if ($(panel).hasClass('row4')) {
       if (!reachedFinalPanel) { // only run this script once
         reachedFinalPanel = true;
+        hideScrollArrow()
         disableScroll();
-        panel6Script();
       }
     }
   })
@@ -46,7 +62,11 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function initEventListeners() {
+  // panel 1 has to be viewed before 2, but its possible to scroll directly to panel 3 without viewing panels 1,2
   setupPanel1();
+  setupPanel3();
+  setupPanel5();
+  setupPanel6();
 }
 
 // set up each panel to be viewed in sequence, they're all separate because
@@ -56,9 +76,10 @@ function initEventListeners() {
 function setupPanel1() {
   const panel = $(".row1 > .panel1")[0];
 
-  $(panel).hover(() => {
+  $(panel).one('mouseenter',() => {
     // on hover, unblur the image and add the text after 0.75s
     $(panel).addClass('unblur')
+
     setTimeout(() => {
       $('<img id="panel1Text" src="images/Panel1_TextA.png"/>').appendTo($(panel));
     }, 750)
@@ -70,8 +91,9 @@ function setupPanel1() {
 function setupPanel2() {
   const panel = $(".row1 > .panel2")[0];
 
-  $(panel).hover(() => {
+  $(panel).one('mouseenter',() => {
     $(panel).addClass('unblur')
+  
     setTimeout(() => {
       $('<img id="panel2TextB" src="images/Panel2_TextB.png"/>').appendTo($(panel));
       setTimeout(() => {
@@ -80,13 +102,76 @@ function setupPanel2() {
     }, 750)
 
     enableScroll();
-    setupPanel3();
+    showScrollArrow();
   })
 }
 
 function setupPanel3() {
-  $(".row2 .panel1").hover(() => {
-    $(".row2 .panel1").addClass('unblur')
+  const panel = $(".row2 > .panel1")[0];
+
+  $(panel).one('mouseenter',() => {
+    $(panel).addClass('unblur')
+
+    setTimeout(() => {
+      $('<img id="panel3TextB" src="images/Panel3_TextB.png"/>').appendTo($(panel));
+      // boy running animation
+      setTimeout(() => {
+        var frame = 1;
+        $('<img id="panel3Boy" src="images/Panel3_BoyA.png"/>').appendTo($(panel));
+        // flip between the two frames of the boy
+        const boyFrameFlip = setInterval(() => {
+          if (frame == 1) {
+            $('#panel3Boy').attr('src', "images/Panel3_BoyB.png");
+            frame = 0;
+          } else {
+            $('#panel3Boy').attr('src', "images/Panel3_BoyA.png");
+            frame = 1;
+          }
+        }, 500)
+      }, 2500)
+
+      
+      setTimeout(() => {
+        $('<img id="panel3TextC" src="images/Panel3_TextC.png"/>').appendTo($(panel));
+        setupPanel4();
+        clearInterval(boyFrameFlip);
+      }, 7500)
+    }, 750)
+  })
+}
+
+function setupPanel4() {
+  const panel = $(".row2 > .panel2")[0];
+
+  $(panel).one('mouseenter',() => {
+
+    $(panel).addClass('unblur')
+
+    enableScroll();
+    showScrollArrow();
+  })
+}
+
+function setupPanel5() {
+  const panel = $(".row3 > .panel1")[0];
+  const panelImg = $(".row3 > .panel1 > img")[0]
+
+  $(panel).one('mouseenter',() => {
+    $(panel).addClass('unblur')
+
+    $(panel).one('click', () => { // on first click
+      $('.row3 #panel5ClickText').css('display', 'none');
+      $(panelImg).attr('src', 'images/Panel5_2.png');
+      setTimeout(() => {
+        $(panelImg).attr('src', 'images/Panel5_3.png');
+        $(panel).one('click', () => { // on second click
+          $(panelImg).attr('src', 'images/Panel5_4.png');
+
+          enableScroll();
+          showScrollArrow();
+        });
+      }, 300)
+    });
   })
 }
 
@@ -96,28 +181,24 @@ function addPanelHoverEventListeners() {
   })
 }
 
-function panel6Script() {
-  var userClicked = false;
-  const finalPanel = $(".row4 > .comicPanel")[0];
-  $(finalPanel).bind('click', function() {
-    if (!userClicked) { // once user clicked, dont trigger for any further clicks
-      userClicked = true; 
-      // add splash image
-      $('<img id="panel6SplashImage" src="images/Panel6_Splash.png"/>').appendTo($(finalPanel));
-      // add axolotl animation flying after 1.25s, 1s for splash to finish expanding
+function setupPanel6() {
+  const panel = $(".row4 > .comicPanel")[0];
+  $(panel).one('click', function() {
+    // add splash image
+    $('<img id="panel6SplashImage" src="images/Panel6_Splash.png"/>').appendTo($(panel));
+    // add axolotl animation flying after 1.25s, 1s for splash to finish expanding
+    setTimeout(() => {
+      $('<img id="panel6Axolotl" src="images/Panel6_FlyingAxolotl.png"/>').appendTo($(panel));
+      // time taken for axolotl to hit screen, 4s, then change image to splat image
       setTimeout(() => {
-        $('<img id="panel6Axolotl" src="images/Panel6_FlyingAxolotl.png"/>').appendTo($(finalPanel));
-        // time taken for axolotl to hit screen, 4s, then change image to splat image
+        $('#panel6Axolotl').attr('src', "images/Panel6_AxolotlFinal.png");
+        // sneaky use of setTimeout to make sure that this is run after changing the image
         setTimeout(() => {
-          $('#panel6Axolotl').attr('src', "images/Panel6_AxolotlFinal.png");
-          // sneaky use of setTimeout to make sure that this is run after changing the image
-          setTimeout(() => {
-            $('#panel6Axolotl').css('height', '800px')
-            $('#panel6Axolotl').addClass('slideAnimation')
-          }, 10);
-        }, 3400);
-      }, 1250)
-    }
+          $('#panel6Axolotl').css('height', '800px')
+          $('#panel6Axolotl').addClass('slideAnimation')
+        }, 10);
+      }, 3400);
+    }, 1250)
   });
 }
 
@@ -128,6 +209,16 @@ function disableScroll() {
 function enableScroll() {
   $("body").css("overflow", "visible");
 }
+
+// shows the arrow that tells user to scroll
+function showScrollArrow() {
+  $("#downwardsArrow").css('display','block');
+}
+
+function hideScrollArrow() {
+  $("#downwardsArrow").css('display','none');
+}
+
 
 // preload image function stolen from internet
 // preloads the image, so when you insert it into the DOM with javascript it doesnt need a load time

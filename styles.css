@@ -48,6 +48,7 @@ body {
 .row2 .panel1 {
   transform: translateY(-12vh);
   flex-basis: 48.8%;
+  filter: brightness(0.2) blur(5px);
 }
 
 .row2 .panel2 {
@@ -61,7 +62,8 @@ body {
 }
 
 .row3 .panel1 {
-  flex-basis: 95%;
+  flex-basis: 75%;
+  transform: translateY(-33%);
 }
 
 .row4 {
@@ -86,6 +88,38 @@ body {
 }
 
 /* */
+
+@keyframes arrowBounce {
+  0% {
+    transform: translate(-50%, 0%);
+  }
+  25% {
+    transform: translate(-50%, -25%);
+  }
+  50% {
+    transform: translate(-50%, 0%);
+  }
+  75% {
+    transform: translate(-50%, 25%);
+  }
+  100% {
+    transform: translate(-50%, 0%);
+  }
+}
+
+#downwardsArrow {
+  position: fixed;
+  display: block;
+  bottom: 0%;
+  left: 50%;
+  height: 50px;
+  animation-name: arrowBounce;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+
+}
 
 @keyframes fadeIn {
   100% {
@@ -131,10 +165,78 @@ body {
   animation-duration: 1s;
   animation-timing-function: ease-in;
   animation-fill-mode: forwards;
-
 }
 
+#panel3TextB {
+  opacity: 0%;
 
+  position: absolute;
+  top: 40%;
+  left: 17%;
+  height: 120px;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+#panel3TextC {
+  opacity: 0%;
+
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  height: 120px;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes boyAnimation {
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, 70%) scale(3.25);
+    opacity: 1;
+  }
+}
+
+#panel3Boy {
+  opacity: 0;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 60px;
+  transform: translate(-50%, 20%);
+  animation-name: boyAnimation;
+  animation-duration: 8s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes clickTextAnimation {
+  50% {
+    transform: translateX(-50%) scale(1.2);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+#panel5ClickText {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-name: clickTextAnimation;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
 
 
 
