@@ -2,7 +2,29 @@
 imagesToBePreloaded = [
   'images/Panel6_FlyingAxolotl.png',
   'images/Panel6_AxolotlFinal.png',
+  'images/Panel3_BoyB',
+  'images/Panel3_BoyA',
 ]
+
+var aquariumBreakSound = new Howl({
+  src: ['sounds/aquariumBreak.mp3']
+});
+
+var aquariumKnockSound = new Howl({
+  src: ['sounds/aquariumKnock.mp3']
+});
+
+var crackSound = new Howl({
+  src: ['sounds/crack.mp3']
+});
+
+var hitGlassSound = new Howl({
+  src: ['sounds/hitGlass.mp3']
+});
+
+var slidingSound = new Howl({
+  src: ['sounds/sliding.mp3']
+});
 
 document.addEventListener("DOMContentLoaded", function() {
   initEventListeners();
@@ -26,21 +48,22 @@ document.addEventListener("DOMContentLoaded", function() {
     if ($(panel).hasClass('row1')) {
       if (!reachedFirstRow) { // only run this script once
         reachedFirstRow = true;
-        hideScrollArrow()
+        hideScrollArrow();
         disableScroll();
       }
     }
     if ($(panel).hasClass('row2')) {
       if (!reachedSecondRow) { // only run this script once
         reachedSecondRow = true;
-        hideScrollArrow()
+        hideScrollArrow();
         disableScroll();
+        reachedThirdRow = false;
       }
     }
     if ($(panel).hasClass('row3')) {
       if (!reachedThirdRow) { // only run this script once
         reachedThirdRow = true;
-        hideScrollArrow()
+        hideScrollArrow();
         disableScroll();
       }
     }
@@ -48,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if ($(panel).hasClass('row4')) {
       if (!reachedFinalPanel) { // only run this script once
         reachedFinalPanel = true;
-        hideScrollArrow()
+        hideScrollArrow();
         disableScroll();
       }
     }
@@ -82,9 +105,8 @@ function setupPanel1() {
 
     setTimeout(() => {
       $('<img id="panel1Text" src="images/Panel1_TextA.png"/>').appendTo($(panel));
+      setupPanel2();
     }, 750)
-  
-    setupPanel2();
   })
 }
 
@@ -98,15 +120,15 @@ function setupPanel2() {
       $('<img id="panel2TextB" src="images/Panel2_TextB.png"/>').appendTo($(panel));
       setTimeout(() => {
         $('<img id="panel2TextC" src="images/Panel2_TextC.png"/>').appendTo($(panel));
+        enableScroll();
+        showScrollArrow();
       }, 1500)
     }, 750)
-
-    enableScroll();
-    showScrollArrow();
   })
 }
 
 function setupPanel3() {
+  var boyFrameFlip;
   const panel = $(".row2 > .panel1")[0];
 
   $(panel).one('mouseenter',() => {
@@ -119,7 +141,7 @@ function setupPanel3() {
         var frame = 1;
         $('<img id="panel3Boy" src="images/Panel3_BoyA.png"/>').appendTo($(panel));
         // flip between the two frames of the boy
-        const boyFrameFlip = setInterval(() => {
+        boyFrameFlip = setInterval(() => {
           if (frame == 1) {
             $('#panel3Boy').attr('src', "images/Panel3_BoyB.png");
             frame = 0;
@@ -145,7 +167,7 @@ function setupPanel4() {
 
   $(panel).one('mouseenter',() => {
 
-    $(panel).addClass('unblur')
+    $(panel).addClass('unblur');
 
     enableScroll();
     showScrollArrow();
@@ -157,16 +179,19 @@ function setupPanel5() {
   const panelImg = $(".row3 > .panel1 > img")[0]
 
   $(panel).one('mouseenter',() => {
-    $(panel).addClass('unblur')
+    $(panel).addClass('unblur');
 
     $(panel).one('click', () => { // on first click
+      aquariumKnockSound.play(); 
       $('.row3 #panel5ClickText').css('display', 'none');
       $(panelImg).attr('src', 'images/Panel5_2.png');
       setTimeout(() => {
         $(panelImg).attr('src', 'images/Panel5_3.png');
         $(panel).one('click', () => { // on second click
+          aquariumKnockSound.play(); 
+          crackSound.play(); 
           $(panelImg).attr('src', 'images/Panel5_4.png');
-
+          
           enableScroll();
           showScrollArrow();
         });
@@ -184,6 +209,7 @@ function addPanelHoverEventListeners() {
 function setupPanel6() {
   const panel = $(".row4 > .comicPanel")[0];
   $(panel).one('click', function() {
+    aquariumBreakSound.play(); 
     // add splash image
     $('<img id="panel6SplashImage" src="images/Panel6_Splash.png"/>').appendTo($(panel));
     // add axolotl animation flying after 1.25s, 1s for splash to finish expanding
@@ -191,15 +217,24 @@ function setupPanel6() {
       $('<img id="panel6Axolotl" src="images/Panel6_FlyingAxolotl.png"/>').appendTo($(panel));
       // time taken for axolotl to hit screen, 4s, then change image to splat image
       setTimeout(() => {
+        
+        hitGlassSound.play(); 
         $('#panel6Axolotl').attr('src', "images/Panel6_AxolotlFinal.png");
         // sneaky use of setTimeout to make sure that this is run after changing the image
         setTimeout(() => {
           $('#panel6Axolotl').css('height', '800px')
           $('#panel6Axolotl').addClass('slideAnimation')
+          setTimeout(() => { slidingSound.play(); }, 2500); // time taken for slide animation to start
+          setTimeout(() => { showCredits(); }, 10000); // show credits
         }, 10);
       }, 3400);
     }, 1250)
   });
+}
+
+function showCredits() {
+  $('#creditsContainer').css("display", "flex");
+  $('#creditsContainer').css("animation-play-state", "running");
 }
 
 function disableScroll() {
