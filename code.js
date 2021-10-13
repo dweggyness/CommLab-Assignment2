@@ -1,9 +1,19 @@
 
 imagesToBePreloaded = [
+  'images/Panel6_Splash.png',
   'images/Panel6_FlyingAxolotl.png',
   'images/Panel6_AxolotlFinal.png',
   'images/Panel3_BoyB',
   'images/Panel3_BoyA',
+  'images/Panel5_1.png',
+  'images/Panel5_2.png',
+  'images/Panel5_3.png',
+  'images/Panel5_4.png',
+  'images/Panel1_TextA.png',
+  "images/Panel2_TextB.png",
+  "images/Panel2_TextC.png",
+  'images/Panel3_TextC.png',
+
 ]
 
 var aquariumBreakSound = new Howl({
