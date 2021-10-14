@@ -4,6 +4,9 @@
 https://dweggyness.github.io/CommLab-Assignment2/
 
 ### Description: 
+
+The project consists of creating an interactive comic within a website. The website used different topics covered in class including using CSS flexbox and grids, jquery, scrolling animations, jQuery animations, and Adobe Photoshop and Illustrator. We tried to create an interesting and entertaining user experience through the use of animations and interactivity and an entertaining story with the comics.
+
 This short comic is centered around an aquarium, where an axolotl named Moby has arrived. He was excited to meet the inhabitants of this new aquarium, but they were all bored and sad about their life in an aquarium. One of them loudly said how he wishes the freedom from this aquarium. His wish was about to fulfil when a boy came running to the aquarium. 
 
 The glass of the Aquarium is very fragile and can break on simple knocking. At this point, the readers are informed about the power they hold as participants, as they can simulate the knocking by the boy using their mouse to click on the panel.
@@ -19,6 +22,9 @@ We also used Photoshop to composite the images to create finalized panels, excep
 The proper implementation of animations and user interaction demanded that we take the liberty from user to scroll at certain points in order to give time for animations to complete and the story to be completely told.
 
 We also used sounds for knocking, cracking, glass break, and Moby bumping into the wall in the end. The sounds helped reinforce the user interactions and react to them in order to make the user experience more pleasant.
+
+We implemented several of McCloud's concepts. First, the use of lines and how they can convey various meanings. I used it by using different text fonts which gave a sense of identity to each of the characters. Another usage of line was to express emotions such as in the final scene where the axolotl bumps into the window or when the axolotl is flying towards the window. I also used an icon in the poster to represent an idea that everyone could understand. Other concepts from the book were also implemented regarding line boldness, time, and motion. 
+
 
 
 ### Reflection:
